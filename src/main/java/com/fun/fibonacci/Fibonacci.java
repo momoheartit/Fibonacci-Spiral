@@ -10,11 +10,11 @@ public class Fibonacci {
         //System.out.print("How many Fibonacci numbers you want to see?");
         //int arraySize = sc.nextInt();
         SwingUtilities.invokeLater(() -> {
-            int arraySize = 10; // Az első 10 Fibonacci számra
+            int arraySize = 15; // Az első 10 Fibonacci számra
             Numbers numbers = new Numbers(arraySize);
             numbers.calculateFibonacci();
 
-            FibonacciSpiral fibonacciSpiral = new FibonacciSpiral();
+            FibonacciSpiral fibonacciSpiral = new FibonacciSpiral(numbers.getFibonacciNumbers());
         });
     }
 }

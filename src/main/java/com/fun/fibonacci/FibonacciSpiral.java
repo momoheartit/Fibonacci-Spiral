@@ -5,9 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class FibonacciSpiral extends JFrame {
+    
+    private int[] fibonacciNumbers;
+    
 
-    public FibonacciSpiral() {
+    public FibonacciSpiral(int[] fibonacciNumbers) {
         super("Fibonacci Spiral");
+        this.fibonacciNumbers = fibonacciNumbers;
         initialize();
     }
 
@@ -17,18 +21,121 @@ public class FibonacciSpiral extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        //getContentPane().setBackground(Color.BLACK);
+        
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
+        
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight()); // Fekete háttér
+        
+        g.setColor(Color.LIGHT_GRAY);
+        int column = 50;
+        for (int i = 0; i < column; i++) {
+            for (int j = 0; j < column; j++) {
+                if ((i + j) % 2 == 0) {
+                    g.setColor(Color.lightGray);
+                } else {
+                    g.setColor(Color.lightGray);
+                }
+
+                g.drawRect(i * column, j * column, column, column);
+            }
+        }
+            
 
         g.setColor(new Color(255, 215, 0));
         
+        int circleX = getWidth()/2;
+        int circleY = getHeight()/2;
+        
+        int newCircleX = circleX;
+        int newCircleY = circleY;
+        
+        for (int i = 1; i <fibonacciNumbers.length; i++){
+            
+            int zoom = 2;
+            
+            int diameter = fibonacciNumbers[i]*zoom;
+            int radius = diameter/2;
+            
+            int lastDiameter = fibonacciNumbers[i-1]*zoom;
+            int lastRadius = lastDiameter/2;
+            
+
+            
+            if( (i % 4) == 0) {
+                newCircleX = (circleX + lastRadius) - radius;
+                newCircleY = (circleY + lastDiameter) - diameter;
+                
+                g.drawArc(newCircleX,newCircleY, diameter, diameter,270, 90);
+                /*
+                circleX = newCircleX;
+                circleY = newCircleY;
+                
+                int x8 = (x7 + sugar7) - sugar8;
+                int y8 = (y7 + atmero7) - atmero8;
+
+                int rx8 = x8 + sugar8;
+                int ry8 = y8 + sugar8;
+                */
+            }
+            
+            if( (i % 4) == 3) {
+                newCircleX = circleX;
+                newCircleY = (circleY + lastRadius) - radius;
+                
+                g.drawArc(newCircleX,newCircleY, diameter, diameter,180, 90);
+                /*
+                circleX = newCircleX;
+                circleY = newCircleY;
+                
+                int x7 = x6;
+                int y7 = (y6 + sugar6) - sugar7;
+                int rx7 = x7;
+                int ry7 = y7 + sugar7;
+                */ 
+            }
+            
+            if( (i % 4) == 2) {
+                newCircleX = (circleX + lastRadius) - radius;
+                newCircleY = circleY;
+                
+                g.drawArc(newCircleX,newCircleY, diameter, diameter,90, 90);
+                /*
+                circleX = newCircleX;
+                circleY = newCircleY;
+                
+                int x6 = (x5 + sugar5) - sugar6;
+                int y6 = y5;
+                int rx6 = x6;
+                int ry6 = y6;
+                */
+            }
+            
+            if( (i % 4) == 1) {
+                newCircleX = (circleX + lastDiameter) - diameter;
+                newCircleY = (circleY + lastRadius) - radius;
+                
+                g.drawArc(newCircleX, newCircleY, diameter, diameter, 0, 90);
+                /*
+                circleX = newCircleX;
+                circleY = newCircleY;
+                
+                int x5 = (x4 + atmero4) - atmero5;
+                int y5 = (y4 + sugar4) - sugar5;
+                int rx5 = x5 + sugar5;
+                int ry5 = y5;
+                */
+            }
+            circleX = newCircleX;
+            circleY = newCircleY;
+                
+        }
+
+        /*
         int atmero0 = 0;
         int sugar0 = 0;
         int x0 = getWidth()/2;
@@ -136,5 +243,6 @@ public class FibonacciSpiral extends JFrame {
         g.drawArc(x8, y8, atmero8, atmero8, 270, 90);
         g.drawRect(rx8, ry8, sugar8, sugar8);
         g.drawString("8", rx8 + sugar8/2, ry8 + sugar8/2);
+        */
     }
 }
