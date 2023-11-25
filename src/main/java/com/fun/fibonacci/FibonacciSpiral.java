@@ -3,6 +3,8 @@ package com.fun.fibonacci;
 import java.awt.BasicStroke;
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -18,7 +20,7 @@ public class FibonacciSpiral extends JFrame {
     }
 
     private void initialize() {
-        setSize(800, 800);
+        setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -29,7 +31,8 @@ public class FibonacciSpiral extends JFrame {
         super.paint(g);
         
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight()); // Fekete háttér
+        g.fillRect(0, 0, getWidth(), getHeight());
+        
         /*
         g.setColor(Color.LIGHT_GRAY);
         int column = 50;
@@ -45,12 +48,7 @@ public class FibonacciSpiral extends JFrame {
             }
         }*/
         
-        /*
-        Graphics2D g2d = (Graphics2D) g;
-                float circleThickness = 3.0f;
-                g2d.setStroke(new BasicStroke(circleThickness));
-        */
-        int zoom = 2;    
+        int zoom = 1;    
         double startPointX = (getWidth()/4)*3;;
         double startPointY = getHeight()/2;;
         
@@ -72,11 +70,20 @@ public class FibonacciSpiral extends JFrame {
             int lastDiameter = fibonacciNumbers[j-1]*zoom;
             int lastRadius = lastDiameter/2;
             
+            int fontSize = radius / 3;
+            Font font = new Font("Elephant", Font.PLAIN, fontSize);
+            g.setFont(font);
+            FontMetrics fontMetrics = g.getFontMetrics();
+            int textX = (radius - g.getFontMetrics().stringWidth(Integer.toString(j)) )/ 2;
+            int textY = ((radius - g.getFontMetrics().getAscent() )/ 2 ) + g.getFontMetrics().getAscent();
+
+            //idáig vond vissza, 
             if( (j % 4) == 0) {
                 newSquareX = (squareX + lastRadius) - radius;
                 newSquareY = (squareY + lastDiameter) - diameter;
                 
                 g.drawRect(newSquareX + radius, newSquareY + radius, radius, radius);
+                g.drawString(Integer.toString(j), newSquareX + radius + textX, newSquareY + radius + textY);
             }
             
             if( (j % 4) == 3) {
@@ -84,7 +91,7 @@ public class FibonacciSpiral extends JFrame {
                 newSquareY = (squareY + lastRadius) - radius;
                 
                 g.drawRect(newSquareX, newSquareY + radius, radius, radius);
-                
+                g.drawString(Integer.toString(j), newSquareX + textX, newSquareY + radius + textY);
             }
             
             if( (j % 4) == 2) {
@@ -92,7 +99,7 @@ public class FibonacciSpiral extends JFrame {
                 newSquareY = squareY;
                 
                 g.drawRect(newSquareX, newSquareY, radius, radius);
-                
+                g.drawString(Integer.toString(j), newSquareX + textX, newSquareY + textY);
             }
             
             if( (j % 4) == 1) {
@@ -100,7 +107,7 @@ public class FibonacciSpiral extends JFrame {
                 newSquareY = (squareY + lastRadius) - radius;
                 
                 g.drawRect(newSquareX + radius, newSquareY, radius, radius);
-                
+                g.drawString(Integer.toString(j), newSquareX + + radius + textX, newSquareY + textY);
             }
             squareX = newSquareX;
             squareY = newSquareY;
