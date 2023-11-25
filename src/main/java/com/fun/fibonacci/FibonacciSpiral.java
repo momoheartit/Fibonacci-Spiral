@@ -1,8 +1,10 @@
 package com.fun.fibonacci;
 
+import java.awt.BasicStroke;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class FibonacciSpiral extends JFrame {
     
@@ -48,16 +50,75 @@ public class FibonacciSpiral extends JFrame {
                 float circleThickness = 3.0f;
                 g2d.setStroke(new BasicStroke(circleThickness));
         */
+        int zoom = 2;    
+        double startPointX = (getWidth()/4)*3;;
+        double startPointY = getHeight()/2;;
         
-        int circleX = (getWidth()/4)*3;
-        int circleY = getHeight()/2;
+        // DRAWING THE SQUARES
+        int squareX = (int) startPointX;
+        int squareY = (int) startPointY;
+        int newSquareX = squareX;
+        int newSquareY = squareY;
+        
+        for (int j = 1; j <fibonacciNumbers.length; j++){
+            g.setColor(new Color(36, 37, 38));
+            
+            Graphics2D g2d = (Graphics2D) g;
+            float circleThickness = 0.8f;
+            g2d.setStroke(new BasicStroke(circleThickness));
+            
+            int diameter = fibonacciNumbers[j]*zoom;
+            int radius = diameter/2;
+            int lastDiameter = fibonacciNumbers[j-1]*zoom;
+            int lastRadius = lastDiameter/2;
+            
+            if( (j % 4) == 0) {
+                newSquareX = (squareX + lastRadius) - radius;
+                newSquareY = (squareY + lastDiameter) - diameter;
+                
+                g.drawRect(newSquareX + radius, newSquareY + radius, radius, radius);
+            }
+            
+            if( (j % 4) == 3) {
+                newSquareX = squareX;
+                newSquareY = (squareY + lastRadius) - radius;
+                
+                g.drawRect(newSquareX, newSquareY + radius, radius, radius);
+                
+            }
+            
+            if( (j % 4) == 2) {
+                newSquareX = (squareX + lastRadius) - radius;
+                newSquareY = squareY;
+                
+                g.drawRect(newSquareX, newSquareY, radius, radius);
+                
+            }
+            
+            if( (j % 4) == 1) {
+                newSquareX = (squareX + lastDiameter) - diameter;
+                newSquareY = (squareY + lastRadius) - radius;
+                
+                g.drawRect(newSquareX + radius, newSquareY, radius, radius);
+                
+            }
+            squareX = newSquareX;
+            squareY = newSquareY;
+        }
+        
+        // DRAWING THE CIRCLES
+        int circleX = (int) startPointX;
+        int circleY = (int) startPointY;
         int newCircleX = circleX;
         int newCircleY = circleY;
         
-        
         for (int i = 1; i <fibonacciNumbers.length; i++){
+            g.setColor(new Color(255, 215, 0));
             
-            int zoom = 2;
+            Graphics2D g2d = (Graphics2D) g;
+            float circleThickness = 2.0f;
+            g2d.setStroke(new BasicStroke(circleThickness));
+            
             int diameter = fibonacciNumbers[i]*zoom;
             int radius = diameter/2;
             int lastDiameter = fibonacciNumbers[i-1]*zoom;
@@ -67,10 +128,6 @@ public class FibonacciSpiral extends JFrame {
                 newCircleX = (circleX + lastRadius) - radius;
                 newCircleY = (circleY + lastDiameter) - diameter;
                 
-                g.setColor(new Color(36, 37, 38));
-                g.drawRect(newCircleX + radius, newCircleY + radius, radius, radius);
-                
-                g.setColor(new Color(255, 215, 0));
                 g.drawArc(newCircleX,newCircleY, diameter, diameter,270, 90);
             }
             
@@ -78,10 +135,6 @@ public class FibonacciSpiral extends JFrame {
                 newCircleX = circleX;
                 newCircleY = (circleY + lastRadius) - radius;
                 
-                g.setColor(new Color(36, 37, 38));
-                g.drawRect(newCircleX, newCircleY + radius, radius, radius);
-                
-                g.setColor(new Color(255, 215, 0));
                 g.drawArc(newCircleX,newCircleY, diameter, diameter,180, 90);
             }
             
@@ -89,10 +142,6 @@ public class FibonacciSpiral extends JFrame {
                 newCircleX = (circleX + lastRadius) - radius;
                 newCircleY = circleY;
                 
-                g.setColor(new Color(36, 37, 38));
-                g.drawRect(newCircleX, newCircleY, radius, radius);
-                
-                g.setColor(new Color(255, 215, 0));
                 g.drawArc(newCircleX,newCircleY, diameter, diameter,90, 90);
             }
             
@@ -100,10 +149,6 @@ public class FibonacciSpiral extends JFrame {
                 newCircleX = (circleX + lastDiameter) - diameter;
                 newCircleY = (circleY + lastRadius) - radius;
                 
-                g.setColor(new Color(36, 37, 38));
-                g.drawRect(newCircleX + radius, newCircleY, radius, radius);
-                
-                g.setColor(new Color(255, 215, 0));
                 g.drawArc(newCircleX, newCircleY, diameter, diameter, 0, 90);
             }
             circleX = newCircleX;
