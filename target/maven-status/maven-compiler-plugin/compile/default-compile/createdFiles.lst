@@ -1,3 +1,4 @@
 com\fun\fibonacci\Fibonacci.class
 com\fun\fibonacci\Numbers.class
-com\fun\fibonacci\FibonacciSpiral.class
+com\fun\fibonacci\GUI\Drawer.class
+com\fun\fibonacci\GUI\FibonacciSpiral.class
