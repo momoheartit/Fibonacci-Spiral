@@ -11,16 +11,17 @@ public class Drawer {
 
     private Graphics g;
     private int[] fibonacciNumbers;
-    private int zoom;
+    private double zoom;
     private double startPointX;
     private double startPointY;
-
-    public Drawer(Graphics g, int[] fibonacciNumbers, int zoom, double startPointX, double startPointY) {
+        
+    public Drawer(Graphics g, int[] fibonacciNumbers, double zoom, double startPointX, double startPointY) {
         this.g = g;
         this.fibonacciNumbers = fibonacciNumbers;
         this.zoom = zoom;
         this.startPointX = startPointX;
         this.startPointY = startPointY;
+        
     }
 
     public void drawSquares() {
@@ -36,9 +37,9 @@ public class Drawer {
             float circleThickness = 0.8f;
             g2d.setStroke(new BasicStroke(circleThickness));
 
-            int diameter = fibonacciNumbers[j] * zoom;
+            int diameter = (int) (fibonacciNumbers[j] * zoom);
             int radius = diameter / 2;
-            int lastDiameter = fibonacciNumbers[j - 1] * zoom;
+            int lastDiameter = (int) (fibonacciNumbers[j - 1] * zoom);
             int lastRadius = lastDiameter / 2;
 
             int fibonacciValue = fibonacciNumbers[j];
@@ -98,36 +99,36 @@ public class Drawer {
             float circleThickness = 2.0f;
             g2d.setStroke(new BasicStroke(circleThickness));
 
-            int diameter = fibonacciNumbers[i] * zoom;
+            int diameter = (int) (fibonacciNumbers[i] * zoom);
             int radius = diameter / 2;
-            int lastDiameter = fibonacciNumbers[i - 1] * zoom;
+            int lastDiameter = (int) (fibonacciNumbers[i - 1] * zoom);
             int lastRadius = lastDiameter / 2;
 
             if ((i % 4) == 0) {
                 newCircleX = (circleX + lastRadius) - radius;
                 newCircleY = (circleY + lastDiameter) - diameter;
-
+                
                 g.drawArc(newCircleX, newCircleY, diameter, diameter, 270, 90);
             }
 
             if ((i % 4) == 3) {
                 newCircleX = circleX;
                 newCircleY = (circleY + lastRadius) - radius;
-
+                
                 g.drawArc(newCircleX, newCircleY, diameter, diameter, 180, 90);
             }
 
             if ((i % 4) == 2) {
                 newCircleX = (circleX + lastRadius) - radius;
                 newCircleY = circleY;
-
+                
                 g.drawArc(newCircleX, newCircleY, diameter, diameter, 90, 90);
             }
 
             if ((i % 4) == 1) {
                 newCircleX = (circleX + lastDiameter) - diameter;
                 newCircleY = (circleY + lastRadius) - radius;
-
+                
                 g.drawArc(newCircleX, newCircleY, diameter, diameter, 0, 90);
             }
             circleX = newCircleX;
