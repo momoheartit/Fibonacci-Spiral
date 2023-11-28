@@ -28,6 +28,4 @@ public class Numbers {
             System.out.println("[" + i + "] " +fibonacciNumbers[i]);
         }
     }
-    
-    
 }

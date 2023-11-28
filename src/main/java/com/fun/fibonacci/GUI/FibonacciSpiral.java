@@ -3,6 +3,12 @@ package com.fun.fibonacci.GUI;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 public class FibonacciSpiral extends JFrame {
 
@@ -120,5 +126,25 @@ public class FibonacciSpiral extends JFrame {
         Drawer draw = new Drawer(g, fibonacciNumbers, zoom, startPointX, startPointY);
         draw.drawSquares();
         draw.drawCircles();
+        screenShot();
+        
+    }
+    
+    void screenShot() {
+        try {
+            Thread.sleep(1000);
+            
+            Robot robot = new Robot();
+            Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+            BufferedImage bufferedImage = robot.createScreenCapture(rectangle);
+            
+            String desktopPath = System.getProperty("user.home") + "\\Desktop";
+            File file = new File(desktopPath, "jframe_screenshot.png");
+            ImageIO.write(bufferedImage, "png", file);
+
+            System.out.println("Your Fibonacci Spiral is saved Succesfully: " + file.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
