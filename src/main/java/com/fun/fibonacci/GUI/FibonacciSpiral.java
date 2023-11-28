@@ -10,8 +10,8 @@ public class FibonacciSpiral extends JFrame {
     double picSizeWidth;
     double picSizeHeight;
     double zoom;
-    int border = 20;
-    int halfBorder = border/2;
+    int border = 100;
+    int margin = border / 2;
 
     public FibonacciSpiral(int[] fibonacciNumbers) {
         super("Fibonacci Spiral");
@@ -24,7 +24,7 @@ public class FibonacciSpiral extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
-        setResizable(false); 
+        setResizable(false);
     }
 
     @Override
@@ -33,49 +33,57 @@ public class FibonacciSpiral extends JFrame {
 
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
-        
+
         ///////////////////////////////////////
         //we can delete this, just here to see clear
         g.setColor(Color.MAGENTA);
-        g.drawLine(10, 0, 10, 800);
-        g.drawLine(1190, 0, 1190, 800);
-        
+        g.drawLine(50, 0, 50, 800);
+        g.drawLine(1150, 0, 1150, 800);
+
         g.setColor(Color.MAGENTA);
-        g.drawLine(0, 10, 1200, 10);
-        g.drawLine(0, 790, 1200, 790);
+        g.drawLine(0, 50, 1200, 50);
+        g.drawLine(0, 750, 1200, 750);
         ///////////////////////////////////////
 
-        double startPointX = (getWidth() / 4) * 3;
-        double startPointY = getHeight() / 2;
+        int startPointX;
+        int startPointY;
         if ((fibonacciNumbers.length - 1) % 4 == 0 || (fibonacciNumbers.length - 1) % 4 == 2) {
             picSizeWidth = getWidth() - border;
-            System.out.println("picsizewidth" + picSizeWidth);
+            zoom = picSizeWidth / (fibonacciNumbers[fibonacciNumbers.length - 1] + fibonacciNumbers[fibonacciNumbers.length - 2]);
             picSizeHeight = fibonacciNumbers[fibonacciNumbers.length - 1] * zoom;
-            zoom = (getWidth() - border) / (fibonacciNumbers[fibonacciNumbers.length - 1] + fibonacciNumbers[fibonacciNumbers.length - 2]);
-            
-            if ((fibonacciNumbers.length - 1) % 4 == 0) {
-                startPointX = halfBorder + picSizeWidth*0.35 - zoom/2;
-                startPointY = getHeight() - halfBorder - (getHeight() * 0.65) + zoom/2;
-            } else {
-                //this is what not ready yet
-                startPointX = halfBorder + picSizeWidth*0.65 - zoom/2;
-                startPointY = getHeight() - halfBorder - (getHeight() * 0.35) + zoom/2;
+            if ((fibonacciNumbers.length - 1) % 4 == 0) { //0
+                startPointX = (int) (margin + picSizeWidth * 0.35 - zoom / 2);
+                startPointY = (int) (getHeight() - margin - (getHeight() * 0.65) + zoom / 2);
+            } else { //2
+                /////////////////new work on this.
+                int x = 0;
+                for (int i = 1; i < fibonacciNumbers.length; i++){
+                    if ( i % 4 == 0)
+                    x += fibonacciNumbers[i];
+                }
+                startPointX = (int) (getWidth() - margin - (x * zoom));
+                
+                int y = 0;
+                for (int i = 1; i < fibonacciNumbers.length; i++){
+                    if ( i % 4 == 3)
+                    y += fibonacciNumbers[i];
+                }
+                System.out.println("y: " + y);
+                startPointY = (int) (getHeight() - margin - (y * zoom));
             }
+
         } else {
             picSizeWidth = fibonacciNumbers[fibonacciNumbers.length - 1] * zoom;
             picSizeHeight = getHeight() - border;
             zoom = picSizeHeight / fibonacciNumbers[fibonacciNumbers.length - 1];
-            
-            if ((fibonacciNumbers.length - 1) % 4 == 3) {
-                startPointX = ((getWidth()/2) + (picSizeWidth * 0.65)) / 2;
-                startPointY = getHeight()-halfBorder-(getHeight()*0.65);
-            } else {
-                startPointX = ((getWidth()/2) + (picSizeWidth * 0.35)) / 2 + zoom/2;
-                startPointY = getHeight()-halfBorder-(getHeight()*0.35) + zoom/2;
+
+            if ((fibonacciNumbers.length - 1) % 4 == 3) { //3
+                startPointX = (int) (((getWidth() / 2) + (picSizeWidth * 0.65)) / 2);
+                startPointY = (int) (getHeight() - margin - (getHeight() * 0.65));
+            } else { //1
+                startPointX = (int) (((getWidth() / 2) + (picSizeWidth * 0.35)) / 2 + zoom / 2);
+                startPointY = (int) (getHeight() - margin - (getHeight() * 0.35) + zoom / 2);
             }
-            
-            
-            
         }
 
         Drawer draw = new Drawer(g, fibonacciNumbers, zoom, startPointX, startPointY);

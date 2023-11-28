@@ -12,10 +12,10 @@ public class Drawer {
     private Graphics g;
     private int[] fibonacciNumbers;
     private double zoom;
-    private double startPointX;
-    private double startPointY;
+    private int startPointX;
+    private int startPointY;
         
-    public Drawer(Graphics g, int[] fibonacciNumbers, double zoom, double startPointX, double startPointY) {
+    public Drawer(Graphics g, int[] fibonacciNumbers, double zoom, int startPointX, int startPointY) {
         this.g = g;
         this.fibonacciNumbers = fibonacciNumbers;
         this.zoom = zoom;
@@ -37,9 +37,9 @@ public class Drawer {
             float circleThickness = 0.8f;
             g2d.setStroke(new BasicStroke(circleThickness));
 
-            int diameter = (int) (fibonacciNumbers[j] * zoom);
+            int diameter = (int) ((fibonacciNumbers[j] * zoom) * 2);
             int radius = diameter / 2;
-            int lastDiameter = (int) (fibonacciNumbers[j - 1] * zoom);
+            int lastDiameter = (int) ((fibonacciNumbers[j - 1] * zoom) * 2);
             int lastRadius = lastDiameter / 2;
 
             int fibonacciValue = fibonacciNumbers[j];
@@ -79,7 +79,7 @@ public class Drawer {
                 newSquareY = (squareY + lastRadius) - radius;
 
                 g.drawRect(newSquareX + radius, newSquareY, radius, radius);
-                g.drawString(Integer.toString(fibonacciValue), newSquareX + +radius + textX, newSquareY + textY);
+                g.drawString(Integer.toString(fibonacciValue), newSquareX + radius + textX, newSquareY + textY);
             }
             squareX = newSquareX;
             squareY = newSquareY;
@@ -99,9 +99,9 @@ public class Drawer {
             float circleThickness = 2.0f;
             g2d.setStroke(new BasicStroke(circleThickness));
 
-            int diameter = (int) (fibonacciNumbers[i] * zoom);
+            int diameter = (int) ((fibonacciNumbers[i] * zoom) * 2) ;
             int radius = diameter / 2;
-            int lastDiameter = (int) (fibonacciNumbers[i - 1] * zoom);
+            int lastDiameter = (int) ((fibonacciNumbers[i - 1] * zoom) * 2);
             int lastRadius = lastDiameter / 2;
 
             if ((i % 4) == 0) {
