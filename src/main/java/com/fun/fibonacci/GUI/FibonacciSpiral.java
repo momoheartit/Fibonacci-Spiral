@@ -2,6 +2,7 @@ package com.fun.fibonacci.GUI;
 
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -9,6 +10,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
 
 public class FibonacciSpiral extends JFrame {
 
@@ -126,6 +128,7 @@ public class FibonacciSpiral extends JFrame {
         Drawer draw = new Drawer(g, fibonacciNumbers, zoom, startPointX, startPointY);
         draw.drawSquares();
         draw.drawCircles();
+        
         screenShot();
         
     }
@@ -135,11 +138,26 @@ public class FibonacciSpiral extends JFrame {
             Thread.sleep(1000);
             
             Robot robot = new Robot();
-            Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+            
+            int windowWidth = getWidth();
+            int windowHeight = getHeight();
+
+            // Képernyő mérete
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int screenWidth = screenSize.width;
+            int screenHeight = screenSize.height;
+            int x = (screenWidth - windowWidth) / 2;
+            int y = (screenHeight - windowHeight) / 2;
+
+            Rectangle rectangle = new Rectangle(x, y, windowWidth, windowHeight);
             BufferedImage bufferedImage = robot.createScreenCapture(rectangle);
             
             String desktopPath = System.getProperty("user.home") + "\\Desktop";
             File file = new File(desktopPath, "jframe_screenshot.png");
+            
+            ImageWriteParam writeParam = ImageIO.getImageWritersByFormatName("png").next().getDefaultWriteParam();
+            writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            writeParam.setCompressionQuality(1.0f); 
             ImageIO.write(bufferedImage, "png", file);
 
             System.out.println("Your Fibonacci Spiral is saved Succesfully: " + file.getAbsolutePath());

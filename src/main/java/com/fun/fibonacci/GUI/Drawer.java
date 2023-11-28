@@ -94,10 +94,10 @@ public class Drawer {
         int newCircleY = circleY;
 
         for (int i = 1; i < fibonacciNumbers.length; i++) {
-            g.setColor(new Color(255, 215, 0));
+            g.setColor(new Color(212, 175, 55));
 
             Graphics2D g2d = (Graphics2D) g;
-            float circleThickness = 2.0f;
+            float circleThickness = 3.0f;
             g2d.setStroke(new BasicStroke(circleThickness));
 
             int diameter = (int) ((fibonacciNumbers[i] * zoom) * 2) ;
