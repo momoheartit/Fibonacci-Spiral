@@ -43,7 +43,8 @@ public class Drawer {
             int lastRadius = lastDiameter / 2;
 
             int fibonacciValue = fibonacciNumbers[j];
-            int fontSize = radius / 4;
+            int fontSize = radius / 3;
+            if (fibonacciNumbers.length > 20) {fontSize = radius / 8;}
             Font font = new Font("Elephant", Font.PLAIN, fontSize);
             g.setFont(font);
             FontMetrics fontMetrics = g.getFontMetrics();

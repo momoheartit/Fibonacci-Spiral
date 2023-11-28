@@ -8,7 +8,7 @@ public class Fibonacci {
     public static void main(String[] args) {
         
         SwingUtilities.invokeLater(() -> {
-            int arraySize = 7; 
+            int arraySize = 46; //a 46. még jó, a 47. már nem
             Numbers numbers = new Numbers(arraySize);
             numbers.calculateFibonacci();
             numbers.printFibonacciNumbers();

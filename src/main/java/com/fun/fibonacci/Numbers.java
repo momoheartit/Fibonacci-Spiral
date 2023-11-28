@@ -25,7 +25,7 @@ public class Numbers {
     public void printFibonacciNumbers() {
         System.out.println("The first " + arraySize + " Fibonacci numbers:");        
         for (int i = 0; i < arraySize; i++) {
-            System.out.println(fibonacciNumbers[i]);
+            System.out.println("[" + i + "] " +fibonacciNumbers[i]);
         }
     }
     
